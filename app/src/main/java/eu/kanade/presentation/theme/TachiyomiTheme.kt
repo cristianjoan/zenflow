@@ -25,6 +25,8 @@ import eu.kanade.presentation.theme.colorscheme.TokyoNightColorScheme
 import eu.kanade.presentation.theme.colorscheme.YinYangColorScheme
 import eu.kanade.presentation.theme.colorscheme.YotsubaColorScheme
 import mihon.app.di.appGraph
+import eu.kanade.presentation.theme.zenflow.DesignTokens
+import eu.kanade.presentation.theme.zenflow.LocalDesignTokens
 
 @Composable
 fun TachiyomiTheme(
@@ -65,7 +67,11 @@ private fun BaseTachiyomiTheme(
                 isAmoled = isAmoled,
             )
         },
-        content = content,
+        content = {
+            CompositionLocalProvider(LocalDesignTokens provides DesignTokens()) {
+                content()
+            }
+        },
     )
 }
 
