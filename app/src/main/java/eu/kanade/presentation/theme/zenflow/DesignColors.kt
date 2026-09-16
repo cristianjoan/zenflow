@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.Color
  * Accent       #E83B3B            (saturated warm red)
  * Accent dark  #6E2024            (deep red)
  */
-object ZenflowColors {
+object DesignColors {
 
     // -- Base surfaces -------------------------------------------------------
     val backgroundBase = Color(0xFF080808)
@@ -44,19 +44,4 @@ object ZenflowColors {
 
     val accent = Color(0xFFE83B3B)
     val accentDark = Color(0xFF6E2024)
-
-    // -- Semantic status tokens (history / reader progress) ------------------
-    /** Completed / on-track reading state. */
-    val statusSuccess = Color(0xFF3ADF4A)
-    /** In-progress / partial state. */
-    val statusWarning = Color(0xFFF2C94C)
-    /** Error / overdue state. */
-    val statusError = accent
-
-    // -- Glass helpers --------------------------------------------------------
-    /** Very subtle warm tint used when deriving ambient from warm cover art. */
-    val ambientWarm = Color(0xFF3A1E14)
-
-    /** Very subtle cool tint for cool-toned covers. */
-    val ambientCool = Color(0xFF141C24)
 }
