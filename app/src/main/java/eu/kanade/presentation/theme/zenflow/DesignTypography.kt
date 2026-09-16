@@ -1,10 +1,10 @@
 package eu.kanade.presentation.theme.zenflow
 
-import androidx.compose.material3.Typography
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.GenericFontFamily
+import androidx.compose.ui.text.style.TextTransform
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 
 /**
@@ -19,52 +19,51 @@ import androidx.compose.ui.unit.sp
  * font dependencies. If a serif/sans pair already exists in the project it
  * should be reused here instead.
  */
-object ZenflowTypography {
+object DesignTypography {
 
-    private val Serif = FontFamily.Serif
-    private val Sans = FontFamily.SansSerif
+    private val Serif = GenericFontFamily.Serif
+    private val Sans = GenericFontFamily.SansSerif
 
     // -- Editorial serif -----------------------------------------------------
-    @Composable
+    /** Large serif screen title. ~28sp, normal weight. */
     val screenTitle: TextStyle
         get() = TextStyle(
             fontFamily = Serif,
-            fontSize = 57.sp,
-            lineHeight = 64.sp,
+            fontSize = 28.sp,
+            lineHeight = 32.sp,
             fontWeight = FontWeight.Normal,
-            letterSpacing = (-1.5).sp,
+            letterSpacing = (-0.5).em,
         )
 
-    @Composable
+    /** Editorial serif for prominent series titles. ~24sp. */
     val seriesTitle: TextStyle
         get() = TextStyle(
             fontFamily = Serif,
-            fontSize = 57.sp,
-            lineHeight = 64.sp,
-            fontWeight = FontWeight.Normal,
+            fontSize = 24.sp,
+            lineHeight = 30.sp,
+            fontWeight = FontWeight.Medium,
         )
 
-    @Composable
+    /** Serif for section titles. ~20sp. */
     val sectionTitle: TextStyle
         get() = TextStyle(
             fontFamily = Serif,
-            fontSize = 34.sp,
-            lineHeight = 40.sp,
+            fontSize = 20.sp,
+            lineHeight = 26.sp,
             fontWeight = FontWeight.Normal,
         )
 
-    /** Large editorial number used in stats (chapter count, read count, rating). */
-    @Composable
+    /** Large editorial/serif number for hero stats. ~36sp, Bold. */
     val heroNumber: TextStyle
         get() = TextStyle(
             fontFamily = Serif,
-            fontSize = 57.sp,
-            lineHeight = 64.sp,
-            fontWeight = FontWeight.Normal,
+            fontSize = 36.sp,
+            lineHeight = 42.sp,
+            fontWeight = FontWeight.Bold,
         )
 
     // -- UI sans-serif -------------------------------------------------------
-    @Composable
+    /** Clean sans-serif body text. ~16sp. */
     val body: TextStyle
         get() = TextStyle(
             fontFamily = Sans,
@@ -73,7 +72,7 @@ object ZenflowTypography {
             fontWeight = FontWeight.Normal,
         )
 
-    @Composable
+    /** Sans-serif bold variant. ~16sp, Bold. */
     val bodyStrong: TextStyle
         get() = TextStyle(
             fontFamily = Sans,
@@ -82,52 +81,45 @@ object ZenflowTypography {
             fontWeight = FontWeight.Bold,
         )
 
-    @Composable
-    val navigationLabel: TextStyle
-        get() = TextStyle(
-            fontFamily = Sans,
-            fontSize = 14.sp,
-            lineHeight = 20.sp,
-            fontWeight = FontWeight.Medium,
-            letterSpacing = 0.2.sp,
-        )
-
-    @Composable
-    val buttonLabel: TextStyle
-        get() = TextStyle(
-            fontFamily = Sans,
-            fontSize = 16.sp,
-            lineHeight = 24.sp,
-            fontWeight = FontWeight.Medium,
-            letterSpacing = 0.15.sp,
-        )
-
-    // -- Tracked uppercase utility -------------------------------------------
-    /** Small uppercase label with noticeably increased letter spacing. */
-    @Composable
+    /** Small gray metadata text. ~12sp, SecondaryText color. */
     val metadata: TextStyle
         get() = TextStyle(
             fontFamily = Sans,
             fontSize = 12.sp,
             lineHeight = 16.sp,
             fontWeight = FontWeight.Medium,
-            letterSpacing = 1.4.sp,
+            letterSpacing = 0.05.em,
+            color = DesignColors.textSecondary,
         )
 
-    @Composable
+    /** Uppercase tracked label. ~11sp, textTransform=Uppercase, letterSpacing=1.2.em. */
     val trackedLabel: TextStyle
         get() = TextStyle(
             fontFamily = Sans,
-            fontSize = 12.sp,
+            fontSize = 11.sp,
             lineHeight = 16.sp,
             fontWeight = FontWeight.Medium,
-            textCase = androidx.compose.ui.text.TextUnit.TextCase.Uppercase,
-            letterSpacing = 1.8.sp,
+            textTransform = TextTransform.Uppercase,
+            letterSpacing = 1.2.em,
         )
 
-    // -- Convenience alias ---------------------------------------------------
-    /** Alias for the app's primary sans-serif body style. */
-    @Composable
-    val sansBody: TextStyle
-        get() = body
+    /** Sans-serif label for navigation items. ~12sp. */
+    val navigationLabel: TextStyle
+        get() = TextStyle(
+            fontFamily = Sans,
+            fontSize = 12.sp,
+            lineHeight = 18.sp,
+            fontWeight = FontWeight.Medium,
+            letterSpacing = 0.05.em,
+        )
+
+    /** Sans-serif button label. ~14sp, SemiBold. */
+    val buttonLabel: TextStyle
+        get() = TextStyle(
+            fontFamily = Sans,
+            fontSize = 14.sp,
+            lineHeight = 20.sp,
+            fontWeight = FontWeight.SemiBold,
+            letterSpacing = 0.05.em,
+        )
 }
