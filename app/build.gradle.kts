@@ -358,3 +358,15 @@ androidComponents {
         it.packaging.resources.excludes.add("META-INF/*.version")
     }
 }
+
+configurations.all {
+    resolutionStrategy.eachDependency {
+        if (requested.group == "com.github.arkon" && requested.name == "FlexibleAdapter") {
+            useTarget("eu.davidea:flexible-adapter:5.1.0")
+        }
+        if (requested.group == "com.github.arkon.FlexibleAdapter" && requested.name == "flexible-adapter") {
+            useTarget("eu.davidea:flexible-adapter:5.1.0")
+        }
+    }
+}
+

@@ -7,6 +7,7 @@ import androidx.compose.material3.MaterialExpressiveTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
+import eu.kanade.domain.ui.UiPreferences
 import eu.kanade.domain.ui.model.AppTheme
 import eu.kanade.presentation.theme.colorscheme.BaseColorScheme
 import eu.kanade.presentation.theme.colorscheme.CatppuccinColorScheme
@@ -25,6 +26,7 @@ import eu.kanade.presentation.theme.colorscheme.TokyoNightColorScheme
 import eu.kanade.presentation.theme.colorscheme.YinYangColorScheme
 import eu.kanade.presentation.theme.colorscheme.YotsubaColorScheme
 import eu.kanade.presentation.theme.zenflow.DesignTokens
+import mihon.app.di.appGraph
 
 @Composable
 fun TachiyomiTheme(
@@ -33,7 +35,7 @@ fun TachiyomiTheme(
     content: @Composable () -> Unit,
 ) {
     val context = LocalContext.current
-    val uiPreferences = remember { context.appGraph.uiPreferences }
+    val uiPreferences = remember<UiPreferences> { context.appGraph.uiPreferences }
     BaseTachiyomiTheme(
         appTheme = appTheme ?: uiPreferences.appTheme.get(),
         isAmoled = amoled ?: uiPreferences.themeDarkAmoled.get(),

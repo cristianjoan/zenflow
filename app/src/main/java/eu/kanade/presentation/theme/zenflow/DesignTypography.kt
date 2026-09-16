@@ -1,9 +1,8 @@
 package eu.kanade.presentation.theme.zenflow
 
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.font.GenericFontFamily
-import androidx.compose.ui.text.style.TextTransform
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 
@@ -21,8 +20,8 @@ import androidx.compose.ui.unit.sp
  */
 object DesignTypography {
 
-    private val Serif = GenericFontFamily.Serif
-    private val Sans = GenericFontFamily.SansSerif
+    private val Serif = FontFamily.Serif
+    private val Sans = FontFamily.SansSerif
 
     // -- Editorial serif -----------------------------------------------------
     /** Large serif screen title. ~28sp, normal weight. */
@@ -99,7 +98,6 @@ object DesignTypography {
             fontSize = 11.sp,
             lineHeight = 16.sp,
             fontWeight = FontWeight.Medium,
-            textTransform = TextTransform.Uppercase,
             letterSpacing = 1.2.em,
         )
 

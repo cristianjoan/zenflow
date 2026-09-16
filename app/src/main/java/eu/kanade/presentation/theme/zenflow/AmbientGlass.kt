@@ -6,17 +6,32 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.BlurEffect
 import androidx.compose.ui.graphics.Color
+<<<<<<< Updated upstream
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.dp
 import eu.kanade.presentation.theme.zenflow.DesignColors.Companion.backgroundBase
 import eu.kanade.presentation.theme.zenflow.DesignColors.Companion.backgroundHigh
 import eu.kanade.presentation.theme.zenflow.DesignShapes.Companion.largeSurfaceRadius
+=======
+import androidx.compose.ui.graphics.RenderEffect
+import androidx.compose.ui.graphics.Shader
+import androidx.compose.ui.graphics.TileMode
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.Dp
+import eu.kanade.presentation.theme.zenflow.DesignColors.backgroundBase
+import eu.kanade.presentation.theme.zenflow.DesignShapes.largeSurfaceRadius
+>>>>>>> Stashed changes
 
 // ---------------------------------------------------------------------------
 // Ambient background
@@ -113,7 +128,7 @@ fun AmbientBackground(
     params: AmbientBackgroundParams = AmbientBackgroundParams(),
     content: @Composable () -> Unit,
 ) {
-    Box(content = content) {
+    Box {
         // 1. Base near-black.
         Box(
             modifier = Modifier
@@ -138,11 +153,15 @@ fun AmbientBackground(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(
-                    color = Color.Black.copy(alpha = 0.12f),
-                    blendMode = BlendMode.Multiply,
-                ),
+                .drawBehind {
+                    drawRect(
+                        color = Color.Black.copy(alpha = 0.12f),
+                        blendMode = BlendMode.Multiply,
+                    )
+                },
         )
+
+        content()
     }
 }
 
@@ -157,6 +176,7 @@ fun AmbientBackground(
  * la sensación de que el color "flota" sobre el contenido sin contaminar la
  * zona inferior de la pantalla.
  */
+@Composable
 private fun AmbientLayer(
     ambientColor: Color,
     intensity: Float,
@@ -324,12 +344,50 @@ fun GlassSurface(
                 } else {
                     Modifier
                 },
+<<<<<<< Updated upstream
             )
             .background(
                 color = params.fillColor,
                 shape = shape,
             )
             .drawBorders(
+=======
+            ),
+        content = {
+            // Capa de relleno translúcido con blur opcional, dibujada por
+            // separado para que el desenfoque solo afecte al relleno y no al
+            // contenido ni a los bordes.
+            if (params.blur > 0.dp) {
+                Canvas(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .graphicsLayer {
+                            renderEffect = BlurEffect(
+                                params.blur.toPx(),
+                                params.blur.toPx(),
+                                TileMode.Clamp,
+                            )
+                        },
+                ) {
+                    drawRoundRect(
+                        color = params.fillColor,
+                        cornerRadius = CornerRadius(params.cornerRadius.toPx(), params.cornerRadius.toPx()),
+                    )
+                }
+            } else {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            color = params.fillColor,
+                            shape = shape,
+                        ),
+                )
+            }
+
+            // Bordes sobre el relleno (sin blur).
+            drawBordersLayer(
+>>>>>>> Stashed changes
                 shape = shape,
                 borderColor = params.borderColor,
                 borderWidth = params.borderWidth,
@@ -347,41 +405,33 @@ fun GlassSurface(
  * Dibuja uno o dos bordes concéntricos (base + acento opcional) sobre el
  * [DrawScope] actual usando la [RoundedCornerShape] indicada.
  */
-private fun DrawScope.drawBorders(
+private fun Modifier.drawBorders(
     shape: RoundedCornerShape,
     borderColor: Color,
     borderWidth: Dp,
     accentTint: Color?,
-) {
+) = this.drawBehind {
     val borderWidthPx = borderWidth.toPx()
-    val topLeftRadiusPx = shape.topLeft.cornerRadius.toPx()
-    val cornerRadius = androidx.compose.ui.geometry.CornerRadius(topLeftRadiusPx, topLeftRadiusPx)
+    val cornerRadiusPx = shape.topStart.toPx(size, this)
+    val cornerRadius = CornerRadius(cornerRadiusPx, cornerRadiusPx)
     val accentOffset = borderWidthPx / 2f
 
     // Borde base.
     drawRoundRect(
         color = borderColor,
-        topLeft = cornerRadius,
-        topRight = cornerRadius,
-        bottomRight = cornerRadius,
-        bottomLeft = cornerRadius,
-        size = this.size,
+        cornerRadius = cornerRadius,
         style = Stroke(width = borderWidthPx),
     )
 
-    // Borde de acento (más fino y con alpha bajo para no dominar).
+    // Borde de acento.
     accentTint?.let { tint ->
-        val accentRadius = androidx.compose.ui.geometry.CornerRadius(
-            (topLeftRadiusPx - accentOffset).coerceAtLeast(0f),
-            (topLeftRadiusPx - accentOffset).coerceAtLeast(0f),
+        val accentRadius = CornerRadius(
+            (cornerRadiusPx - accentOffset).coerceAtLeast(0f),
+            (cornerRadiusPx - accentOffset).coerceAtLeast(0f),
         )
         drawRoundRect(
             color = tint,
-            topLeft = accentRadius,
-            topRight = accentRadius,
-            bottomRight = accentRadius,
-            bottomLeft = accentRadius,
-            size = this.size,
+            cornerRadius = accentRadius,
             style = Stroke(width = borderWidthPx / 2f),
         )
     }

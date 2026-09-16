@@ -6,8 +6,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import eu.kanade.presentation.theme.zenflow.DesignTokens.typography
-import eu.kanade.presentation.theme.zenflow.DesignTokens.colors
+import eu.kanade.presentation.theme.zenflow.ThemeTokens.typography
+import eu.kanade.presentation.theme.zenflow.ThemeTokens.colors
 
 /**
  * Etiqueta tracked uppercase para metadata y secciones (spec §6.7).
