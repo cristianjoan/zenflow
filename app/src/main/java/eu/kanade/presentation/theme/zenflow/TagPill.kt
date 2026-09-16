@@ -14,9 +14,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import eu.kanade.presentation.theme.zenflow.DesignTokens.colors
-import eu.kanade.presentation.theme.zenflow.DesignTokens.shapes
-import eu.kanade.presentation.theme.zenflow.DesignTokens.typography
+import eu.kanade.presentation.theme.zenflow.ThemeTokens.colors
+import eu.kanade.presentation.theme.zenflow.ThemeTokens.shapes
+import eu.kanade.presentation.theme.zenflow.ThemeTokens.typography
 
 /**
  * Pill oscuro para tags, status y metadata (spec §6.8).
@@ -77,7 +77,7 @@ fun TagPill(
     val (paddingHorizontal, paddingVertical, textStyle) = when (size) {
         TagPillSize.SMALL -> Triple(8.dp, 2.dp, typography.metadata)
         TagPillSize.MEDIUM -> Triple(12.dp, 5.dp, typography.buttonLabel)
-        TagPillSize.LARGE -> Triple(16.dp, 8.dp, typography.navigationLabel),
+        TagPillSize.LARGE -> Triple(16.dp, 8.dp, typography.navigationLabel)
     }
     Box(
         modifier = modifier

@@ -31,10 +31,10 @@ import androidx.compose.runtime.staticCompositionLocalOf
  * app continues to work; Zenflow-specific screens consume these tokens
  * directly.
  */
-val LocalDesignColors = staticCompositionLocalOf(provider = DesignColors, name = "LocalDesignColors")
-val LocalDesignTypography = staticCompositionLocalOf(provider = DesignTypography, name = "LocalDesignTypography")
-val LocalDesignShapes = staticCompositionLocalOf(provider = DesignShapes, name = "LocalDesignShapes")
-val LocalDesignSpacing = staticCompositionLocalOf(provider = DesignSpacing, name = "LocalDesignSpacing")
+val LocalDesignColors = staticCompositionLocalOf { DesignColors }
+val LocalDesignTypography = staticCompositionLocalOf { DesignTypography }
+val LocalDesignShapes = staticCompositionLocalOf { DesignShapes }
+val LocalDesignSpacing = staticCompositionLocalOf { DesignSpacing }
 
 /**
  * Injects Zenflow design tokens into the composition tree for the given content.
@@ -57,8 +57,8 @@ fun DesignTokens(content: @Composable () -> Unit) {
  * Access tokens via `ThemeTokens.colors`, `ThemeTokens.typography`, etc.
  */
 object ThemeTokens {
-    val colors: DesignColors get() = LocalDesignColors.current
-    val typography: DesignTypography get() = LocalDesignTypography.current
-    val shapes: DesignShapes get() = LocalDesignShapes.current
-    val spacing: DesignSpacing get() = LocalDesignSpacing.current
+    val colors: DesignColors @Composable get() = LocalDesignColors.current
+    val typography: DesignTypography @Composable get() = LocalDesignTypography.current
+    val shapes: DesignShapes @Composable get() = LocalDesignShapes.current
+    val spacing: DesignSpacing @Composable get() = LocalDesignSpacing.current
 }

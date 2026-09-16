@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,10 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import eu.kanade.presentation.theme.zenflow.DesignTokens.colors
-import eu.kanade.presentation.theme.zenflow.DesignTokens.shapes
+import eu.kanade.presentation.theme.zenflow.ThemeTokens.colors
+import eu.kanade.presentation.theme.zenflow.ThemeTokens.shapes
 
 /**
  * Botón de icono redondeado compartido (spec §6.4).
@@ -100,35 +100,4 @@ enum class ButtonSize {
     SMALL,
     MEDIUM,
     LARGE,
-}
-
-/**
- * Overload con color personalizado para casos donde el botón lleva un tinte
- * específico (ej: bookmark activo, download activo).
- */
-@Composable
-fun RoundedIconButton(
-    icon: ImageVector,
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    selected: Boolean = false,
-    active: Boolean = false,
-    size: ButtonSize = ButtonSize.MEDIUM,
-    containerColor: Color = if (selected || active) colors.elevatedSurface else Color.Transparent,
-    iconTint: Color = if (selected || active) colors.textPrimary else colors.textSecondary,
-    borderColor: Color = if (selected || active) colors.accent.copy(alpha = 0.4f) else colors.border,
-) {
-    RoundedIconButton(
-        icon = icon,
-        onClick = onClick,
-        modifier = modifier,
-        enabled = enabled,
-        selected = selected,
-        active = active,
-        size = size,
-        containerColor = containerColor,
-        iconTint = iconTint,
-        borderColor = borderColor,
-    )
 }
